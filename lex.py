@@ -22,6 +22,8 @@ def lex(code: str) -> Iterable[Token]:
         ("STRING", r"\"(?:[^\"\\\b\f\n\r\t]|\\[\"\\/bfnrt]|u[0-9a-fA-F]{4})*\""),
     ]
 
+    code = re.sub(r";;.*$", "", code)
+
     tok_regex = '|'.join('(?P<%s>%s)' % pair for pair in tokens)
 
     for mo in re.finditer(tok_regex, code):
